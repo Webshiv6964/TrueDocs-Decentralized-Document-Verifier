@@ -1,0 +1,204 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║              TrueDoc — HOW TO RUN AFTER EVERY SYSTEM RESTART               ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+PROJECT ROOT:
+  X:\college\Sem 3\Macrro project\Decentralized-Document-Verifier-main\
+                               Decentralized-Document-Verifier-main\
+
+You need 4 separate PowerShell terminal windows.
+Follow the steps IN ORDER. Do not skip or reorder.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  STEP 1  —  START THE BLOCKCHAIN NODE
+             (Terminal Window 1 — keep open forever)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Open Terminal 1 and run:
+
+    cd "X:\college\Sem 3\Macrro project\Decentralized-Document-Verifier-main\Decentralized-Document-Verifier-main\blockchain"
+
+    npx hardhat node
+
+  Wait until you see this output:
+    Started HTTP and WebSocket JSON-RPC server at http://127.0.0.1:8545/
+    Account #0: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 (10000 ETH)
+    Private Key: 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+    ... (20 accounts listed)
+
+  !! DO NOT CLOSE THIS TERMINAL !!
+  The node must stay running the entire time you use the app.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  STEP 2  —  DEPLOY THE SMART CONTRACT
+             (Terminal Window 2 — can close after deploy)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Open Terminal 2 and run:
+
+    cd "X:\college\Sem 3\Macrro project\Decentralized-Document-Verifier-main\Decentralized-Document-Verifier-main\blockchain"
+
+    npx hardhat run scripts/deploy.js --network localhost
+
+  You will see output like:
+    Deployer address : 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+    ✓ Contract deployed at: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+    ✓ ABI written to: backend/abi/DocumentVerifier.json
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │  IMPORTANT — CONTRACT ADDRESS CHANGES ON EVERY RESTART                  │
+  │                                                                         │
+  │  Copy the address shown after "Contract deployed at:"                   │
+  │  Example:  0x5FbDB2315678afecb367f032d93F642f64180aa3                  │
+  │                                                                         │
+  │  Open this file:                                                        │
+  │  backend\.env                                                           │
+  │                                                                         │
+  │  Update this line with the NEW address:                                 │
+  │    CONTRACT_ADDRESS=0x5FbDB2315678afecb367f032d93F642f64180aa3         │
+  │                                                                         │
+  │  The PRIVATE_KEY line never changes — leave it as:                      │
+  │    PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae... │
+  └─────────────────────────────────────────────────────────────────────────┘
+
+  backend\.env should look like this after editing:
+
+    PINATA_JWT=eyJhbGci...  (do not change this)
+    RPC_URL=http://127.0.0.1:8545
+    CONTRACT_ADDRESS=<PASTE NEW ADDRESS HERE>
+    PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+    DATABASE_URL=postgresql://postgres:postgres@localhost:5432/docverifier
+
+  Save the file before continuing to Step 3.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  STEP 3  —  START THE BACKEND (FastAPI)
+             (Terminal Window 3 — keep open forever)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Open Terminal 3 and run:
+
+    cd "X:\college\Sem 3\Macrro project\Decentralized-Document-Verifier-main\Decentralized-Document-Verifier-main\backend"
+
+    venv\Scripts\uvicorn.exe app.main:app --reload --port 8000
+
+  You will see:
+    INFO: Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+    INFO: Started reloader process [xxxxx] using WatchFiles
+    INFO: Started server process [xxxxx]
+    INFO: Waiting for application startup.
+    [WARN] PostgreSQL unavailable — running without DB support: ...   <- this is normal
+    INFO: Application startup complete.
+
+  The PostgreSQL warning is NORMAL if you do not have PostgreSQL installed.
+  The app will still work — it reads/writes directly from the blockchain.
+
+  Test it is running:
+    Open browser → http://127.0.0.1:8000
+    You should see: {"status":"ok","message":"Document Verifier API is running"}
+
+  API docs available at:
+    http://127.0.0.1:8000/docs
+
+  !! DO NOT CLOSE THIS TERMINAL !!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  STEP 4  —  START THE FRONTEND (React / Vite)
+             (Terminal Window 4 — keep open forever)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Open Terminal 4 and run:
+
+    cd "X:\college\Sem 3\Macrro project\Decentralized-Document-Verifier-main\Decentralized-Document-Verifier-main\frontend"
+
+    npx vite --port 5173
+
+  You will see:
+    VITE v8.x.x  ready in xxx ms
+    ➜  Local:   http://localhost:5173/
+
+  Open your browser and go to:
+    http://localhost:5173
+
+  !! DO NOT CLOSE THIS TERMINAL !!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  QUICK REFERENCE — ALL 4 COMMANDS AT A GLANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Terminal 1 (blockchain node):
+    cd "...\blockchain"
+    npx hardhat node
+
+  Terminal 2 (deploy — run once per restart):
+    cd "...\blockchain"
+    npx hardhat run scripts/deploy.js --network localhost
+    → copy address → paste into backend\.env → save
+
+  Terminal 3 (backend):
+    cd "...\backend"
+    venv\Scripts\uvicorn.exe app.main:app --reload --port 8000
+
+  Terminal 4 (frontend):
+    cd "...\frontend"
+    npx vite --port 5173
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  SERVICE PORTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Blockchain RPC   →  http://127.0.0.1:8545
+  Backend API      →  http://127.0.0.1:8000
+  Backend Docs     →  http://127.0.0.1:8000/docs
+  Frontend App     →  http://localhost:5173
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  PROBLEM: "Cannot connect to blockchain node at http://127.0.0.1:8545"
+  FIX:     Terminal 1 (hardhat node) is not running. Start it first.
+
+  PROBLEM: "Contract revert" or wrong contract errors
+  FIX:     You forgot to update CONTRACT_ADDRESS in backend\.env after deploy.
+           Repeat Step 2 and update the address.
+
+  PROBLEM: Backend shows "CONTRACT_ADDRESS is not set"
+  FIX:     Open backend\.env and make sure CONTRACT_ADDRESS has a value.
+           Then restart the backend (Ctrl+C in Terminal 3, run command again).
+
+  PROBLEM: "venv\Scripts\uvicorn.exe not found"
+  FIX:     The virtual environment is missing. Run once:
+             cd "...\backend"
+             python -m venv venv
+             venv\Scripts\python.exe -m pip install -r requirements.txt
+           Then retry Step 3.
+
+  PROBLEM: Frontend shows "Cannot reach the backend server"
+  FIX:     Terminal 3 (backend) is not running. Start it and retry.
+
+  PROBLEM: Port 8000 or 5173 already in use
+  FIX:     Find and stop the old process:
+             netstat -ano | findstr :8000
+             taskkill /PID <pid> /F
+           Then restart the service.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  NOTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  - Hardhat is a LOCAL test blockchain. All data is wiped on every restart.
+    Documents registered in one session will NOT exist after a restart.
+
+  - The PRIVATE_KEY in .env is a Hardhat test wallet. It is publicly known.
+    Never use it on mainnet or any real blockchain.
+
+  - The PINATA_JWT in .env is your real Pinata API key.
+    Files uploaded to IPFS via Pinata persist even after restart.
+
+  - PostgreSQL is optional. Without it the app uses the blockchain directly.
+    If you install PostgreSQL later, create the database with:
+      createdb docverifier
+    The backend will automatically create the table on startup.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

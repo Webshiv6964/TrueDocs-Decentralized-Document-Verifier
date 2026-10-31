@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables
+.env
+backend/.env
+
+# Build outputs
+frontend/dist/
+frontend/build/
+
+# Hardhat artifacts
+blockchain/artifacts/
+blockchain/cache/
+blockchain/ignition/
+
+# Python virtual environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Coverage
+coverage/

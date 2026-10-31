@@ -1,0 +1,207 @@
+/* ═══════════════════════════════════════════════════════════════
+   tokens.css — TrueDoc Design Token System
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Core Ink ─────────────────────────────────────────────── */
+  --color-ink-950: #071014;
+  --color-ink-900: #0B171B;
+  --color-ink-800: #102126;
+  --color-ink-700: #183037;
+  --color-ink-600: #29434B;
+
+  /* ── Surface (Light) ─────────────────────────────────────── */
+  --color-surface-0:   #FFFFFF;
+  --color-surface-50:  #F7FAF9;
+  --color-surface-100: #EEF4F2;
+  --color-surface-200: #E1EBE8;
+
+  /* ── Dark Surfaces ───────────────────────────────────────── */
+  --dark-bg:        #071014;
+  --dark-surface-1: #0B171B;
+  --dark-surface-2: #102126;
+  --dark-surface-3: #152B31;
+
+  /* ── Text ────────────────────────────────────────────────── */
+  --color-text-primary:   #0A171B;
+  --color-text-secondary: #40545A;
+  --color-text-tertiary:  #718389;
+  --color-text-inverse:   #F7FCFA;
+  --color-text-disabled:  #9AA9AD;
+
+  --dark-text-primary:   #F4FAF8;
+  --dark-text-secondary: #A9BBB9;
+  --dark-text-tertiary:  #718785;
+
+  /* ── Brand ───────────────────────────────────────────────── */
+  --color-brand-300: #83F2E3;
+  --color-brand-400: #45DEC9;
+  --color-brand-500: #18C7B0;
+  --color-brand-600: #0AA894;
+  --color-brand-700: #087F72;
+  --color-brand-primary: #18C7B0;
+
+  /* ── Accents ─────────────────────────────────────────────── */
+  --color-accent-blue:   #5B8CFF;
+  --color-accent-violet: #8B7CFF;
+
+  /* ── Semantic ────────────────────────────────────────────── */
+  --color-success-50:  #ECFDF7;
+  --color-success-500: #10B981;
+  --color-success-600: #079669;
+
+  --color-warning-50:  #FFF9E8;
+  --color-warning-500: #F4B740;
+  --color-warning-600: #D99717;
+
+  --color-error-50:  #FFF1F2;
+  --color-error-500: #EF5B68;
+  --color-error-600: #D64552;
+
+  --color-info-50:  #EFF6FF;
+  --color-info-500: #4F83FF;
+
+  /* ── Borders ─────────────────────────────────────────────── */
+  --color-border-subtle:  #E5EEEB;
+  --color-border-default: #D7E3DF;
+  --color-border-strong:  #B9CCC7;
+
+  --color-border-dark-subtle: rgba(255,255,255,0.08);
+  --color-border-dark:        rgba(255,255,255,0.14);
+
+  /* ── Overlays ────────────────────────────────────────────── */
+  --color-overlay-light:  rgba(7,16,20,0.08);
+  --color-overlay-medium: rgba(7,16,20,0.18);
+  --color-overlay-heavy:  rgba(7,16,20,0.55);
+
+  /* ── Gradients ───────────────────────────────────────────── */
+  --gradient-brand:
+    linear-gradient(135deg, #83F2E3 0%, #18C7B0 45%, #087F72 100%);
+
+  --gradient-dark-atmosphere:
+    radial-gradient(
+      circle at 70% 20%,
+      rgba(24,199,176,0.16) 0%,
+      rgba(24,199,176,0) 48%
+    );
+
+  --gradient-hero-glow:
+    radial-gradient(
+      circle,
+      rgba(69,222,201,0.18) 0%,
+      rgba(69,222,201,0) 65%
+    );
+
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-display: "Inter", sans-serif;
+  --font-body:    "Inter", sans-serif;
+  --font-mono:    "JetBrains Mono", "Fira Code", monospace;
+
+  --text-xs:  0.75rem;
+  --text-sm:  0.875rem;
+  --text-md:  1rem;
+  --text-lg:  1.125rem;
+  --text-xl:  1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+
+  --heading-display: 4.5rem;
+  --heading-xl:      3.75rem;
+  --heading-lg:      3rem;
+  --heading-md:      2.25rem;
+  --heading-sm:      1.875rem;
+
+  --body-lg: 1.125rem;
+  --body-md: 1rem;
+  --body-sm: 0.875rem;
+  --caption: 0.75rem;
+
+  /* ── Line Height ─────────────────────────────────────────── */
+  --leading-none:    1;
+  --leading-tight:   1.1;
+  --leading-snug:    1.25;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+
+  /* ── Font Weights ────────────────────────────────────────── */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* ── Spacing (4px base) ──────────────────────────────────── */
+  --space-0:  0;
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ── Containers ──────────────────────────────────────────── */
+  --container-sm:  640px;
+  --container-md:  768px;
+  --container-lg:  1024px;
+  --container-xl:  1200px;
+  --container-2xl: 1360px;
+
+  /* ── Border Radius ───────────────────────────────────────── */
+  --radius-xs:  6px;
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  20px;
+  --radius-2xl: 24px;
+  --radius-pill: 999px;
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --shadow-xs: 0 1px 2px rgba(7,16,20,0.04);
+  --shadow-sm: 0 2px 8px rgba(7,16,20,0.06);
+  --shadow-md: 0 8px 24px rgba(7,16,20,0.08);
+  --shadow-lg: 0 16px 48px rgba(7,16,20,0.12);
+  --shadow-xl: 0 24px 72px rgba(7,16,20,0.16);
+
+  /* ── Focus ───────────────────────────────────────────────── */
+  --focus-ring: 0 0 0 3px rgba(24,199,176,0.22);
+
+  /* ── Z-Index ─────────────────────────────────────────────── */
+  --z-base:     0;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  500;
+  --z-modal:    600;
+  --z-toast:    700;
+  --z-tooltip:  800;
+
+  /* ── Motion ──────────────────────────────────────────────── */
+  --duration-instant: 100ms;
+  --duration-fast:    150ms;
+  --duration-normal:  220ms;
+  --duration-medium:  320ms;
+  --duration-slow:    450ms;
+  --duration-enter:   500ms;
+
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-enter:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Breakpoints (as reference only – use in media queries) ─ */
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
